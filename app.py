@@ -11,9 +11,12 @@ st.title("📊 XAUUSD AI Dashboard")
 data = yf.download("XAUUSD=X", period="5d", interval="30m")
 
 # Hitung indikator teknikal
-data["RSI"] = ta.momentum.RSIIndicator(data["Close"]).rsi()
-data["SMA20"] = ta.trend.SMAIndicator(data["Close"], window=20).sma_indicator()
-data["SMA50"] = ta.trend.SMAIndicator(data["Close"], window=50).sma_indicator()
+from ta.momentum import RSIIndicator
+from ta.trend import SMAIndicator
+
+data["RSI"] = RSIIndicator(close=data["Close"], window=14).rsi()
+data["SMA20"] = SMAIndicator(close=data["Close"], window=20).sma_indicator()
+data["SMA50"] = SMAIndicator(close=data["Close"], window=50).sma_indicator()
 
 # Chart harga emas
 fig = go.Figure()
