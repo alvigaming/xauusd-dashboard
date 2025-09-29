@@ -14,6 +14,11 @@ st.title("📊 XAUUSD AI Dashboard")
 # =============================
 data = yf.download("XAUUSD=X", period="5d", interval="30m")
 
+# Cek kalau data kosong
+if data.empty:
+    st.error("⚠️ Data XAUUSD tidak tersedia. Coba ganti interval/period atau cek koneksi internet.")
+    st.stop()
+
 # Kalau kolomnya MultiIndex (kadang terjadi di yfinance intraday)
 if isinstance(data.columns, pd.MultiIndex):
     data.columns = data.columns.get_level_values(0)
