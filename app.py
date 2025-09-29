@@ -1,19 +1,17 @@
 import streamlit as st
 import yfinance as yf
-import plotly.graph_objs as go
-import ta
-
-st.set_page_config(page_title="XAUUSD Dashboard", layout="wide")
-
-st.title("📊 XAUUSD AI Dashboard")
-
-# Ambil data XAUUSD dari Yahoo Finance
-data = yf.download("XAUUSD=X", period="5d", interval="30m")
-
-# Hitung indikator teknikal
+import pandas as pd
 from ta.momentum import RSIIndicator
 from ta.trend import SMAIndicator
 
+# Ambil data
+data = yf.download("XAUUSD=X", period="5d", interval="30m")
+
+# Kalau kolomnya MultiIndex → turunin level
+if isinstance(data.columns, pd.MultiIndex):
+    data.columns = data.columns.get_level_values(0)
+
+# Hitung indikator
 data["RSI"] = RSIIndicator(close=data["Close"], window=14).rsi()
 data["SMA20"] = SMAIndicator(close=data["Close"], window=20).sma_indicator()
 data["SMA50"] = SMAIndicator(close=data["Close"], window=50).sma_indicator()
