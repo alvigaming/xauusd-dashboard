@@ -12,8 +12,8 @@ st.title("📊 XAUUSD AI Dashboard")
 # =============================
 # Ambil data XAUUSD dari Yahoo Finance
 # =============================
-symbol = st.selectbox("Pilih Symbol", ["XAUUSD=X", "GC=F", "GLD"])
-interval = st.selectbox("Pilih Interval", ["15m", "30m", "60m", "1d"])
+symbol = st.selectbox("Pilih Symbol", ["XAUUSD", "GC=F", "GLD"])
+interval = st.selectbox("Pilih Interval", ["1M", "15m", "30m", "60m", "1d"])
 
 data = yf.download(symbol, period="5d", interval=interval)
 
