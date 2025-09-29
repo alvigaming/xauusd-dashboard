@@ -17,11 +17,6 @@ interval = st.selectbox("Pilih Interval", ["1M", "15m", "30m", "60m", "1d"])
 
 data = yf.download(symbol, period="5d", interval=interval)
 
-# Cek kalau data kosong
-if data.empty:
-    st.error("⚠️ Data XAUUSD tidak tersedia. Coba ganti interval/period atau cek koneksi internet.")
-    st.stop()
-
 # Kalau kolomnya MultiIndex (kadang terjadi di yfinance intraday)
 if isinstance(data.columns, pd.MultiIndex):
     data.columns = data.columns.get_level_values(0)
